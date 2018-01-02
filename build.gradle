@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
@@ -47,7 +48,9 @@ android {
         minifyEnabled true
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
     }
-    defaultConfig.ndk {
-        moduleName "gif"
+    externalNativeBuild {
+        cmake {
+            path 'jni/CMakeLists.txt'
+        }
     }
 }
