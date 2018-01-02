@@ -361,7 +361,7 @@ public class MakabaModule extends CloudflareChanModule {
     }
 
     @Override
-    public ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList, ThreadModel threadInfo)
+    public ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList)
             throws Exception {
         boolean mobileAPI = preferences.getBoolean(getSharedKey(PREF_KEY_MOBILE_API), true);
         ThreadModel model = new ThreadModel();
@@ -380,7 +380,6 @@ public class MakabaModule extends CloudflareChanModule {
                 posts = ChanModels.mergePostsLists(Arrays.asList(oldList), Arrays.asList(posts));
             }
             model.posts = posts;
-            model.postsCount = calcPostsCount(oldList, model.posts, threadInfo);
             return model;
         }
         try {
@@ -398,7 +397,6 @@ public class MakabaModule extends CloudflareChanModule {
             }
             model.posts = newPosts;
             if (oldList == null || oldList.length == 0) {
-                model.postsCount = calcPostsCount(oldList, model.posts, threadInfo);
                 return model;
             } else {
                 long lastNum = Long.parseLong(lastPost);
@@ -409,7 +407,6 @@ public class MakabaModule extends CloudflareChanModule {
                     }
                 }
                 model.posts = list.toArray(new PostModel[list.size()]);
-                model.postsCount = calcPostsCount(oldList, model.posts, threadInfo);
                 return model;
             }
         } catch (JSONException e) {
@@ -437,7 +434,7 @@ public class MakabaModule extends CloudflareChanModule {
     @Override
     public PostModel[] getPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList)
             throws Exception {
-        ThreadModel model = getThreadPostsList(boardName, threadNumber, listener, task, oldList, null);
+        ThreadModel model = getThreadPostsList(boardName, threadNumber, listener, task, oldList);
         return model.posts;
     }
 
