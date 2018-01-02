@@ -142,10 +142,9 @@ public interface ChanModule {
      * @param task интерфейс отменяемой задачи
      * @param oldList старый список постов (может принимать null).
      * Объекты из этого списка не должны быть изменены (исключение: поле {@link PostModel#deleted})
-     * @param threadInfo
      * @return список (массив) постов треда
      */
-    ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList, ThreadModel threadInfo)
+    ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList)
             throws Exception;
     
     /**

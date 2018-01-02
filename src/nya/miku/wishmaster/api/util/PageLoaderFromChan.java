@@ -18,10 +18,6 @@
 
 package nya.miku.wishmaster.api.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ListIterator;
-
 import nya.miku.wishmaster.R;
 import nya.miku.wishmaster.api.ChanModule;
 import nya.miku.wishmaster.api.interfaces.CancellableTask;
@@ -33,6 +29,10 @@ import nya.miku.wishmaster.common.Logger;
 import nya.miku.wishmaster.common.MainApplication;
 import nya.miku.wishmaster.http.interactive.InteractiveException;
 import nya.miku.wishmaster.lib.org_json.JSONException;
+
+import static nya.miku.wishmaster.cache.SerializablePage.IS_CLOSED;
+import static nya.miku.wishmaster.cache.SerializablePage.IS_CYCLICAL;
+import static nya.miku.wishmaster.cache.SerializablePage.IS_STICKY;
 
 /**
  * Загрузчик АИБ-страниц, загружает или обновляет объект {@link SerializablePage} с чана напрямую.
@@ -77,10 +77,12 @@ public class PageLoaderFromChan implements Runnable {
                     page.threads = threads;
                     break;
                 case UrlPageModel.TYPE_THREADPAGE:
-                    ThreadModel thread = chan.getThreadPostsList(urlPage.boardName, urlPage.threadNumber, null, task, page.posts, page.threadInfo);
+                    ThreadModel thread = chan.getThreadPostsList(urlPage.boardName, urlPage.threadNumber, null, task, page.posts);
                     page.posts = ChanModels.removeDeletedPostsOverLimit(thread.posts, MainApplication.getInstance().settings.getDeletedPostCountLimit());
-                    thread.posts = null;
-                    page.threadInfo = thread;
+                    page.threadMarks = 0;
+                    page.threadMarks += thread.isSticky ? IS_STICKY : 0;
+                    page.threadMarks += thread.isClosed ? IS_CLOSED : 0;
+                    page.threadMarks += thread.isCyclical ? IS_CYCLICAL : 0;
                     break;
                 case UrlPageModel.TYPE_CATALOGPAGE:
                     ThreadModel[] catalog = chan.getCatalog(urlPage.boardName, urlPage.catalogType, null, task, page.threads);

@@ -34,6 +34,9 @@ import nya.miku.wishmaster.api.models.UrlPageModel;
  */
 public class SerializablePage implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final int IS_STICKY = 1;
+    public static final int IS_CLOSED = 2;
+    public static final int IS_CYCLICAL = 4;
     
     @Tag(0) public UrlPageModel pageModel;
     @Tag(1) public BoardModel boardModel;
@@ -41,7 +44,7 @@ public class SerializablePage implements Serializable {
     //в зависимости от pageModel.type только одно из полей (posts и threads) содержит данные, другое null
     @Tag(2) public PostModel[] posts;
     @Tag(3) public ThreadModel[] threads;
-    // для хранения информации о треде
-    @Tag(4) public ThreadModel threadInfo;
+
+    @Tag(4) public int threadMarks;
     
 }

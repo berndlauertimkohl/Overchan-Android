@@ -347,22 +347,11 @@ public abstract class AbstractChanModule implements HttpChanModule {
     }
 
     @Override
-    public ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList, ThreadModel threadInfo)
+    public ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList)
             throws Exception {
         ThreadModel model = new ThreadModel();
         model.posts = getPostsList(boardName, threadNumber, listener, task, oldList);
-        model.postsCount = calcPostsCount(oldList, model.posts, threadInfo);
         return model;
-    }
-    
-    protected int calcPostsCount(PostModel[] oldList, PostModel[] newList, ThreadModel threadInfo) {
-        int postsCount;
-        if (oldList != null && threadInfo != null && threadInfo.postsCount > -1) {
-            postsCount = threadInfo.postsCount + (newList.length - oldList.length);
-        } else {
-            postsCount = newList.length;
-        }
-        return postsCount;
     }
     
     @Override

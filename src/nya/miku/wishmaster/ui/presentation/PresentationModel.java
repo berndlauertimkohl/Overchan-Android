@@ -48,6 +48,10 @@ import nya.miku.wishmaster.ui.settings.AutohideActivity;
 import nya.miku.wishmaster.ui.theme.ThemeUtils;
 import android.content.res.Resources.Theme;
 
+import static nya.miku.wishmaster.cache.SerializablePage.IS_CLOSED;
+import static nya.miku.wishmaster.cache.SerializablePage.IS_CYCLICAL;
+import static nya.miku.wishmaster.cache.SerializablePage.IS_STICKY;
+
 /**
  * Объект - готовая к показу (без ресурсоёмких вычислений) модель страницы.<br>
  * Список готовых к показу объектов {@link PresentationItemModel} - {@link #presentationList} передаётся адаптеру для отображения постов.
@@ -259,8 +263,8 @@ public class PresentationModel {
             rebuild = true;
             Logger.d(TAG, "rebuild: new list is shorter");
         } else {
-            if (presentationList.size() > 0 && source.threadInfo != null) {
-                presentationList.get(0).buildThreadConditionString(source.threadInfo.isSticky, source.threadInfo.isClosed, source.threadInfo.isCyclical);
+            if (presentationList.size() > 0 && source.threadMarks != 0) {
+                presentationList.get(0).buildThreadConditionString((source.threadMarks & IS_STICKY) != 0, (source.threadMarks & IS_CLOSED) != 0, (source.threadMarks & IS_CYCLICAL) != 0);
             }
             for (int i=0, size=presentationList.size(); i<size; ++i) {
                 if (!presentationList.get(i).sourceModel.number.equals(posts[i].number) ||
@@ -319,8 +323,8 @@ public class PresentationModel {
                     }
                 }
             }
-            if (presentationListSize == 0 && i == presentationListSize && source.threadInfo != null) {
-                model.buildThreadConditionString(source.threadInfo.isSticky, source.threadInfo.isClosed, source.threadInfo.isCyclical);
+            if (presentationListSize == 0 && i == presentationListSize && source.threadMarks != 0) {
+                model.buildThreadConditionString((source.threadMarks & IS_STICKY) != 0, (source.threadMarks & IS_CLOSED) != 0, (source.threadMarks & IS_CYCLICAL) != 0);
             }
             presentationList.add(model);
             for (int j=0; j<model.attachmentHashes.length; ++j) {
