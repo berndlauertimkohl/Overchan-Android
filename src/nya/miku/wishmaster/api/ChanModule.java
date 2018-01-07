@@ -140,11 +140,11 @@ public interface ChanModule {
      * @param threadNumber номер треда
      * @param listener интерфейс отслеживания прогресса (может принимать null)
      * @param task интерфейс отменяемой задачи
-     * @param oldList старый список постов (может принимать null).
+     * @param oldThread старый список постов (может принимать null).
      * Объекты из этого списка не должны быть изменены (исключение: поле {@link PostModel#deleted})
      * @return список (массив) постов треда
      */
-    ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList)
+    ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, ThreadModel oldThread)
             throws Exception;
     
     /**

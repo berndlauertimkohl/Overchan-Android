@@ -77,7 +77,12 @@ public class PageLoaderFromChan implements Runnable {
                     page.threads = threads;
                     break;
                 case UrlPageModel.TYPE_THREADPAGE:
-                    ThreadModel thread = chan.getThreadPostsList(urlPage.boardName, urlPage.threadNumber, null, task, page.posts);
+                    ThreadModel thread = new ThreadModel();
+                    thread.isSticky = (page.threadMarks & IS_STICKY) != 0;
+                    thread.isClosed = (page.threadMarks & IS_CLOSED) != 0;
+                    thread.isCyclical = (page.threadMarks & IS_CYCLICAL) != 0;
+                    thread.posts = page.posts;
+                    thread = chan.getThreadPostsList(urlPage.boardName, urlPage.threadNumber, null, task, thread);
                     page.posts = ChanModels.removeDeletedPostsOverLimit(thread.posts, MainApplication.getInstance().settings.getDeletedPostCountLimit());
                     page.threadMarks = 0;
                     page.threadMarks += thread.isSticky ? IS_STICKY : 0;
