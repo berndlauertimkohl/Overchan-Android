@@ -409,12 +409,13 @@ public class MakabaModule extends CloudflareChanModule {
     }
 
     @Override
-    public ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList)
+    public ThreadModel getThreadPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, ThreadModel oldThread)
             throws Exception {
         boolean mobileAPI = preferences.getBoolean(getSharedKey(PREF_KEY_MOBILE_API), true);
         ThreadModel model = new ThreadModel();
+        PostModel[] oldList = oldThread.posts;
         model.posts = oldList;
-        if (!mobileAPI) {
+        if (!mobileAPI || oldThread.isCyclical) {
             String url = domainUrl + boardName + "/res/" + threadNumber + ".json";
             JSONObject object = downloadJSONObject(url, (oldList != null), listener, task);
             if (object == null) return model;
@@ -482,7 +483,9 @@ public class MakabaModule extends CloudflareChanModule {
     @Override
     public PostModel[] getPostsList(String boardName, String threadNumber, ProgressListener listener, CancellableTask task, PostModel[] oldList)
             throws Exception {
-        ThreadModel model = getThreadPostsList(boardName, threadNumber, listener, task, oldList);
+        ThreadModel thread = new ThreadModel();
+        thread.posts = oldList;
+        ThreadModel model = getThreadPostsList(boardName, threadNumber, listener, task, thread);
         return model.posts;
     }
 
