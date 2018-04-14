@@ -44,3 +44,4 @@
 * [02ch.net](https://02ch.net/)
 * [Hispachan](https://www.hispachan.org/)
 * [Ernstchan](https://ernstchan.com/)
+* [kohlchan.net](https://kohlchan.net/)
