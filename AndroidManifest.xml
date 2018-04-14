@@ -132,6 +132,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <data android:host="www.krautchan.net" />
                 <data android:host="beta.krautchan.net" />
                 
+                <data android:host="kohlchan.net" />
+                <data android:host="www.kohlchan.net" />
+                
                 <data android:host="7chan.org" />
                 
                 <data android:host="wakachan.org" />
