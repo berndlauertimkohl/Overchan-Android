@@ -36,10 +36,10 @@ import nya.miku.wishmaster.api.util.ChanModels;
 public class KohlchanModule extends AbstractVichanModule {
     private static final String CHAN_NAME = "kohlchan.net";
     private static final SimpleBoardModel[] BOARDS = new SimpleBoardModel[] {
-            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "b", "b", "VIP", true),
-            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "int", "int", "VIP", true),
-            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "ernst", "ernst", "VIP", false),
-            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "helmut", "helmut", "VIP", false),
+ChanModels.obtainSimpleBoardModel(CHAN_NAME, "b", "/b/", "VIP", false),
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "alt", "ALT KC", "VIP", false),
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "int", "/int/", "VIP", false),
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "ernst", "Ernstes", "VIP", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "a", "Animu", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "c", "Computer&Technik", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "d", "Drogen", "Allgemein", false),
@@ -53,14 +53,17 @@ public class KohlchanModule extends AbstractVichanModule {
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "med", "Medizin", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "n", "Natur", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "ng", "NG", "Allgemein", false),
-            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "pol", "Politik&Philosophie", "Allgemein", false),
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "pol", "Politik", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "prog", "Programmieren", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "s", "Schönes", "Allgemein", true),
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "soz", "Soz", "Allgemein", true),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "tv", "TV&VHS&Musik", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "v", "Videospiele", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "we", "Weltschmerz", "Allgemein", false),
             ChanModels.obtainSimpleBoardModel(CHAN_NAME, "x", "X-Factor", "Allgemein", false),
-
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "kohl", "/kohl/", "Verwaltung", false),
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "m", "Muell", "Verwaltung", false),
+            ChanModels.obtainSimpleBoardModel(CHAN_NAME, "km", "/km/", "Verwaltung", true)
     };
 
     public KohlchanModule(SharedPreferences preferences, Resources resources) {
